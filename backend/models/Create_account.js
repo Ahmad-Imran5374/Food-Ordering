@@ -6,7 +6,11 @@ const Create_accountSchema=new mongoose.Schema({
     phone:String,
     adress:String,
     gender:String,
-    password:String
+    password:String,
+    role:{
+        type:String,
+        default:'user'
+    }
 
 })
 

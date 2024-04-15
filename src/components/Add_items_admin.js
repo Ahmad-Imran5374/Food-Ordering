@@ -1,21 +1,27 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useName } from '../NameContext';
 
 export default function AddItemsAdmin() {
     const [item, setItem] = useState('');
     const [details, setDetails] = useState('');
     const [price, setPrice] = useState('');
     const [file, setFile] = useState(null);
-
+    const [category,setcategory]=useState('')
+    const [weight,setweight]=useState()
+    
     const submit = (e) => {
         e.preventDefault();
 
         let formData = new FormData();
+        //alert(category)
+        //alert(weight)
         formData.append('item', item);
         formData.append('details', details);
         formData.append('price', price);
         formData.append('file', file);
-
+        formData.append('category',category);
+        formData.append('weight',weight);
         axios.post('http://localhost:3001/add_newitem', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -52,6 +58,26 @@ export default function AddItemsAdmin() {
                         <div className="mb-4">
                             <label htmlFor="image" className='block mb-2 text-2xl font-bold'>Upload image</label>
                             <input type="file" id="myFile" name="filename" onChange={(e) => setFile(e.target.files[0])} />
+                        </div>
+                        <div className='mb-4'>
+                        <label htmlFor="Category" className='font-bold'>Select Category: </label>
+                            <select onChange={(e)=>setcategory(e.target.value)}>
+                            <option value="fast food">Fast Food</option>
+                            <option value="desi food" >Desi Food</option>
+                            <option value="Drinks">Drinks</option>
+                            <option value="shakes">Shakes</option>
+                            </select>
+                        </div>
+
+                        <br></br>
+                        <div className='mb-4'>
+                        <label htmlFor="Category" className='font-bold'>Select weight: </label>
+                            <select onChange={(e)=>setweight(e.target.value)}>
+                            <option value="small">small</option>
+                            <option value="kg" >kg</option>
+                            <option value="liter">liter</option>
+                            <option value="glass">glass</option>
+                            </select>
                         </div>
                         <button type='submit' className="w-60 ml-20 bg-blue-500 text-white font-bold py-2 px-4 rounded">Add item</button>
                     </form>
